@@ -1,0 +1,79 @@
+{
+  "subjects": [
+    {
+      "name": "Politics",
+      "questions": [
+        "What do you think are the most pressing political issues facing our country today?",
+        "How do you envision the future of political parties in the next decade?",
+        "What role do you believe youth should play in modern politics?",
+        "How do you respond to critics who say that politics has become too polarized?",
+        "What policies would you prioritize if you were in power?",
+        "How can we restore trust in politicians and the political system?",
+        "Do you believe international diplomacy is more important than national interests?",
+        "How can we address the growing disillusionment with the political system?",
+        "What steps can be taken to improve the representation of minorities in politics?",
+        "How do you view the impact of social media on political discourse?"
+      ]
+    },
+    {
+      "name": "Culture",
+      "questions": [
+        "How do you handle the pressure of being constantly in the public eye?",
+        "Has fame changed your perspective on relationships and personal privacy?",
+        "Do you think the way celebrities are portrayed in the media is fair?",
+        "What advice would you give to young people who aspire to have a career in entertainment?",
+        "How do you stay grounded in an industry that often promotes materialism and fame?",
+        "In your opinion, how can celebrities use their platform for positive social change?",
+        "What do you think is the role of social media in shaping modern celebrity culture?",
+        "How do you deal with criticism, especially when it comes from social media?",
+        "What projects or causes are you currently passionate about outside of your career?",
+        "How do you manage the balance between your public persona and your private life?"
+      ]
+    },
+    {
+      "name": "Sport",
+      "questions": [
+        "How do you view the growing commercialization of sports?",
+        "What impact has social media had on professional athletes and their image?",
+        "Do you think that sports can still be considered purely a form of entertainment?",
+        "How important is mental health awareness in the world of sports?",
+        "What can be done to ensure fair play and integrity in sports?",
+        "How do you feel about the increasing number of international athletes in domestic leagues?",
+        "What do you believe is the future of women’s sports?",
+        "How do you think major sporting events impact local economies and communities?",
+        "How can sports contribute to social change and promote inclusivity?",
+        "What are your thoughts on the growing influence of sports betting and gambling?"
+      ]
+    },
+    {
+      "name": "Science",
+      "questions": [
+        "What do you think is the most exciting recent breakthrough in science?",
+        "How do you see the role of science in addressing global challenges like climate change?",
+        "What should be done to ensure ethical practices in scientific research?",
+        "What are the biggest obstacles to funding and advancing scientific research?",
+        "Do you believe that science and technology should be more closely integrated in education?",
+        "What is the role of science in improving public health, especially in the wake of a pandemic?",
+        "How can science communication be improved to better inform the general public?",
+        "How important is it to foster collaboration between scientists from different fields and countries?",
+        "What do you think are the key challenges in the fields of AI and robotics?",
+        "How do you see the future of space exploration, and what benefits could it bring?"
+      ]
+    },
+    {
+      "name": "Economics",
+      "questions": [
+        "What are the key factors contributing to the current global economic downturn?",
+        "How do you believe government policies can best support economic recovery post-pandemic?",
+        "What is the role of digital currencies in the future of global economies?",
+        "Do you think income inequality is becoming more of a problem in developed nations?",
+        "How do you assess the economic impact of climate change and environmental policies?",
+        "What can be done to prevent future financial crises?",
+        "How important is trade and international relations to the stability of a national economy?",
+        "What are your thoughts on universal basic income as a solution to economic challenges?",
+        "How does the gig economy affect traditional labor markets and workers' rights?",
+        "What do you think the future holds for emerging economies in Africa and Asia?"
+      ]
+    }
+  ]
+}

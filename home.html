@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="data.js"></script>
+    <script src="screen.js"></script>
+</head>
+<body class="bg-yellow-200 min-h-screen flex flex-col items-center justify-center">
+    <div class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
+        <!-- Welcome Title -->
+        <h1 class="text-4xl font-extrabold text-black text-center mb-6">Welcome Dear Journalist!</h1>
+        <!-- Buttons with Emojis -->
+        <div class="space-y-4">
+            <!-- Questions Button -->
+        <button 
+            type="button" 
+            class="w-full bg-slate-400 text-white py-2 px-4 rounded-lg shadow hover:bg-slate-800 focus:outline-none focus:ring-2"
+            onclick="redirectToHome('question.html')"
+            >
+            Questions❓ 
+        </button>
+            <!-- Full Form Button -->
+            <button 
+            type="button" 
+            class="w-full bg-slate-400 text-white py-2 px-4 rounded-lg shadow hover:bg-slate-800 focus:outline-none focus:ring-2"
+            onclick="redirectToHome('fullform.html')"
+            >
+            Full Form📝  
+    </button>
+        </button>
+        <!-- Full Form Button -->
+        <button 
+        type="button" 
+        class="w-full bg-slate-400 text-white py-2 px-4 rounded-lg shadow hover:bg-slate-800 focus:outline-none focus:ring-2"
+        onclick="redirectToHome('history.html')"
+        >
+            Interview History🕒
+        </button>
+        </div>
+    </div>
+</body>
+</html>

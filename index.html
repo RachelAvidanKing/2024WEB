@@ -1,48 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Page</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="data.js"></script>
-  <script src="screen.js"></script>
-</head>
-<body class="bg-gray-100 flex items-center justify-center h-screen   
- bg-cover bg-center" style="background-image: url('image1.jpg'); opacity:0.9;">
+  <!-- Metadata -->
+  <meta charset="UTF-8"> <!-- Defines the character set as UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ensures proper scaling on mobile devices -->
+  <title>Login Page</title> <!-- Title displayed on the browser tab -->
 
+  <!-- External Styles and Scripts -->
+  <script src="https://cdn.tailwindcss.com"></script> <!-- TailwindCSS for styling -->
+  <script src="data.js"></script> <!-- JavaScript file to handle data-related functionality -->
+  <script src="screen.js"></script> <!-- JavaScript file for screen-related logic -->
+</head>
+<body 
+  class="bg-gray-100 flex items-center justify-center h-screen bg-cover bg-center" 
+  style="background-image: url('image1.jpg'); opacity:0.9;">
+  <!-- Sets the background image with slight transparency -->
+
+  <!-- Login Form Container -->
   <div class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
+    <!-- Login Page Title -->
     <h1 class="text-2xl font-bold text-gray-800 text-center mb-6">Login</h1>
+
+    <!-- Login Form -->
     <form>
-      <!-- Email Field -->
+      <!-- Username Input Field -->
       <div class="mb-4">
-        <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+        <label for="username" class="block text-sm font-medium text-gray-700">Username</label> <!-- Label for the username field -->
         <input 
           type="username" 
           id="username" 
           name="username" 
           class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-700" 
-          required
+          required 
         />
       </div>
-      <!-- Password Field -->
+
+      <!-- Password Input Field -->
       <div class="mb-6">
-        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+        <label for="password" class="block text-sm font-medium text-gray-700">Password</label> <!-- Label for the password field -->
         <input 
           type="password" 
           id="password" 
           name="password" 
           class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-700" 
-          required
+          required 
         />
       </div>
+
       <!-- Login Button -->
       <button 
         type="button" 
         class="w-full bg-slate-400 text-white py-2 px-4 rounded-lg shadow hover:bg-slate-800 focus:outline-none focus:ring-2"
-        onclick="loginCheck('home.html')"
+        onclick="loginCheck('home.html')" 
       >
-        Login
+        Login <!-- Button label -->
       </button>
     </form>
   </div>

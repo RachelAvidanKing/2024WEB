@@ -1,0 +1,234 @@
+{
+  "subjects": [
+    {
+      "name": "John Doe",
+      "subject": "Politics",
+      "questions_and_answers": [
+        {
+          "question": "What do you think are the most pressing political issues facing our country today?",
+          "answer": "I believe the most pressing political issues today are inequality and climate change."
+        },
+        {
+          "question": "How do you envision the future of political parties in the next decade?",
+          "answer": "The future of political parties will likely involve more collaboration across ideological lines."
+        },
+        {
+          "question": "What role do you believe youth should play in modern politics?",
+          "answer": "Youth should take an active role by voting and engaging in community activism."
+        },
+        {
+          "question": "How do you respond to critics who say that politics has become too polarized?",
+          "answer": "Polarization is indeed an issue, and open dialogue is key to resolving it."
+        },
+        {
+          "question": "What policies would you prioritize if you were in power?",
+          "answer": "If I were in power, I would prioritize healthcare reform and education funding."
+        },
+        {
+          "question": "How can we restore trust in politicians and the political system?",
+          "answer": "Restoring trust requires transparency and accountability in governance."
+        },
+        {
+          "question": "Do you believe international diplomacy is more important than national interests?",
+          "answer": "International diplomacy is crucial, but it must balance with national interests."
+        },
+        {
+          "question": "How can we address the growing disillusionment with the political system?",
+          "answer": "Addressing disillusionment requires engaging citizens and ensuring fair elections."
+        },
+        {
+          "question": "What steps can be taken to improve the representation of minorities in politics?",
+          "answer": "Improving minority representation means creating opportunities and breaking barriers."
+        },
+        {
+          "question": "How do you view the impact of social media on political discourse?",
+          "answer": "Social media has amplified political discourse but often fuels misinformation."
+        }
+      ]
+    },
+    {
+      "name": "Jane Smith",
+      "subject": "Culture",
+      "questions_and_answers": [
+        {
+          "question": "How do you handle the pressure of being constantly in the public eye?",
+          "answer": "I handle the public eye by staying authentic and grounded."
+        },
+        {
+          "question": "Has fame changed your perspective on relationships and personal privacy?",
+          "answer": "Fame has taught me to value privacy and meaningful relationships."
+        },
+        {
+          "question": "Do you think the way celebrities are portrayed in the media is fair?",
+          "answer": "Media portrayals of celebrities can be unfair and often sensationalized."
+        },
+        {
+          "question": "What advice would you give to young people who aspire to have a career in entertainment?",
+          "answer": "My advice to aspiring entertainers is to focus on their craft and stay resilient."
+        },
+        {
+          "question": "How do you stay grounded in an industry that often promotes materialism and fame?",
+          "answer": "I stay grounded by surrounding myself with supportive people and staying true to my values."
+        },
+        {
+          "question": "In your opinion, how can celebrities use their platform for positive social change?",
+          "answer": "Celebrities can use their platforms by advocating for social justice and awareness."
+        },
+        {
+          "question": "What do you think is the role of social media in shaping modern celebrity culture?",
+          "answer": "Social media shapes modern celebrity culture by creating closer connections with fans."
+        },
+        {
+          "question": "How do you deal with criticism, especially when it comes from social media?",
+          "answer": "I deal with criticism by focusing on constructive feedback and ignoring negativity."
+        },
+        {
+          "question": "What projects or causes are you currently passionate about outside of your career?",
+          "answer": "Outside of my career, I am passionate about mental health advocacy."
+        },
+        {
+          "question": "How do you manage the balance between your public persona and your private life?",
+          "answer": "I balance my public and private life by setting boundaries and prioritizing family."
+        }
+      ]
+    },
+    {
+      "name": "Robert Brown",
+      "subject": "Sport",
+      "questions_and_answers": [
+        {
+          "question": "How do you view the growing commercialization of sports?",
+          "answer": "The commercialization of sports brings opportunities but risks losing its spirit."
+        },
+        {
+          "question": "What impact has social media had on professional athletes and their image?",
+          "answer": "Social media has given athletes more control over their image."
+        },
+        {
+          "question": "Do you think that sports can still be considered purely a form of entertainment?",
+          "answer": "Sports should be a blend of entertainment and community engagement."
+        },
+        {
+          "question": "How important is mental health awareness in the world of sports?",
+          "answer": "Mental health awareness in sports is as important as physical fitness."
+        },
+        {
+          "question": "What can be done to ensure fair play and integrity in sports?",
+          "answer": "Fair play requires stricter enforcement of rules and penalties for violations."
+        },
+        {
+          "question": "How do you feel about the increasing number of international athletes in domestic leagues?",
+          "answer": "International athletes enrich domestic leagues and inspire diversity."
+        },
+        {
+          "question": "What do you believe is the future of women’s sports?",
+          "answer": "The future of women’s sports is bright, with growing recognition and support."
+        },
+        {
+          "question": "How do you think major sporting events impact local economies and communities?",
+          "answer": "Major sporting events boost local economies but require responsible planning."
+        },
+        {
+          "question": "How can sports contribute to social change and promote inclusivity?",
+          "answer": "Sports can promote inclusivity by breaking down social barriers."
+        },
+        {
+          "question": "What are your thoughts on the growing influence of sports betting and gambling?",
+          "answer": "The influence of sports betting needs regulation to protect integrity."
+        }
+      ]
+    },
+    {
+      "name": "Alice Johnson",
+      "subject": "Science",
+      "questions_and_answers": [
+        {
+          "question": "What do you think is the most exciting recent breakthrough in science?",
+          "answer": "The most exciting breakthrough recently is advancements in quantum computing."
+        },
+        {
+          "question": "How do you see the role of science in addressing global challenges like climate change?",
+          "answer": "Science is key to solving global challenges like climate change and pandemics."
+        },
+        {
+          "question": "What should be done to ensure ethical practices in scientific research?",
+          "answer": "Ethical practices in research require strict guidelines and oversight."
+        },
+        {
+          "question": "What are the biggest obstacles to funding and advancing scientific research?",
+          "answer": "Funding challenges include bureaucratic hurdles and lack of public awareness."
+        },
+        {
+          "question": "Do you believe that science and technology should be more closely integrated in education?",
+          "answer": "Science and technology integration in education fosters critical thinking."
+        },
+        {
+          "question": "What is the role of science in improving public health, especially in the wake of a pandemic?",
+          "answer": "Public health relies on scientific innovation and effective communication."
+        },
+        {
+          "question": "How can science communication be improved to better inform the general public?",
+          "answer": "Improving science communication involves using relatable language and examples."
+        },
+        {
+          "question": "How important is it to foster collaboration between scientists from different fields and countries?",
+          "answer": "Collaboration across fields is essential for tackling complex global issues."
+        },
+        {
+          "question": "What do you think are the key challenges in the fields of AI and robotics?",
+          "answer": "AI and robotics face challenges like ethical concerns and data privacy."
+        },
+        {
+          "question": "How do you see the future of space exploration, and what benefits could it bring?",
+          "answer": "Space exploration offers benefits like innovation and inspiration for humanity."
+        }
+      ]
+    },
+    {
+      "name": "Emily White",
+      "subject": "Economics",
+      "questions_and_answers": [
+        {
+          "question": "What are the key factors contributing to the current global economic downturn?",
+          "answer": "Key factors in the economic downturn include inflation and supply chain disruptions."
+        },
+        {
+          "question": "How do you believe government policies can best support economic recovery post-pandemic?",
+          "answer": "Government policies should focus on small business support and infrastructure."
+        },
+        {
+          "question": "What is the role of digital currencies in the future of global economies?",
+          "answer": "Digital currencies are the future but require global regulatory frameworks."
+        },
+        {
+          "question": "Do you think income inequality is becoming more of a problem in developed nations?",
+          "answer": "Income inequality is a growing concern in developed nations."
+        },
+        {
+          "question": "How do you assess the economic impact of climate change and environmental policies?",
+          "answer": "Climate change policies impact economies but offer opportunities for innovation."
+        },
+        {
+          "question": "What can be done to prevent future financial crises?",
+          "answer": "Preventing financial crises requires stricter regulation and diversified markets."
+        },
+        {
+          "question": "How important is trade and international relations to the stability of a national economy?",
+          "answer": "Trade and international relations are pillars of economic stability."
+        },
+        {
+          "question": "What are your thoughts on universal basic income as a solution to economic challenges?",
+          "answer": "Universal basic income could address economic disparities but requires careful planning."
+        },
+        {
+          "question": "How does the gig economy affect traditional labor markets and workers' rights?",
+          "answer": "The gig economy offers flexibility but challenges traditional labor protections."
+        },
+        {
+          "question": "What do you think the future holds for emerging economies in Africa and Asia?",
+          "answer": "Emerging economies in Africa and Asia have immense potential for growth."
+        }
+      ]
+    }
+  ]
+}

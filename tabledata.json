@@ -1,0 +1,29 @@
+{
+  "subjects": [
+    {
+      "name": "John Doe",
+      "subject": "Politics",
+      "date": "28/11/2024"
+    },
+    {
+      "name": "Jane Smith",
+      "subject": "Culture",
+      "date": "27/11/2024"
+    },
+    {
+      "name": "Robert Brown",
+      "subject": "Sport",
+      "date": "10/10/2024"
+    },
+    {
+      "name": "Alice Johnson",
+      "subject": "Science",
+      "date": "9/8/2024"
+    },
+    {
+      "name": "Emily White",
+      "subject": "Economics",
+      "date": "7/8/2024"
+    }
+  ]
+}

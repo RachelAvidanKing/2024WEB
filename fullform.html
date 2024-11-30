@@ -4,16 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Full Form</title>
+    <!-- TailwindCSS Library -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- External JavaScript Files -->
     <script src="data.js"></script>
     <script src="screen.js"></script>
 </head>
 <body class="bg-yellow-200 min-h-screen flex flex-col items-center justify-center">
+    <!-- Main Form Container -->
     <div class="bg-white shadow-lg rounded-lg p-8 max-w-lg w-full">
-         <!-- Title -->
+        <!-- Title Section -->
          <h1 class="text-2xl font-extrabold text-gray-800 text-center mb-6">Add Questions & Answers</h1>
-        <!-- Mini Form -->
+
+        <!-- Interviewer Information Form -->
         <form id="interviewerForm" class="mb-6">
+            <!-- Name Input Field -->
             <div class="mb-4">
                 <label for="interviewerName" class="block text-lg font-semibold text-gray-600 mb-2">Name</label>
                 <input
@@ -24,6 +29,7 @@
                     required
                 />
             </div>
+            <!-- Date Input Field -->
             <div class="mb-4">
                 <label for="interviewDate" class="block text-lg font-semibold text-gray-600 mb-2">Date</label>
                 <input
@@ -35,39 +41,42 @@
             </div>
         </form>
         
-        
-        <!-- Input Container -->
+        <!-- Input Container for Questions and Answers -->
         <div id="inputContainer" class="space-y-4">
-            <!-- Initial Question and Answer in Shadowed Box -->
+            <!-- First Question and Answer Box -->
             <div class="bg-gray-50 shadow-lg rounded-lg p-4 mb-4">
+                <!-- Question 1 Input -->
                 <label class="block text-gray-800 font-bold mb-2">Question 1</label>
                 <input 
+                    id="question1"
                     type="text" 
                     placeholder="Enter Question 1" 
                     class="border border-gray-300 rounded-lg w-full p-2 focus:ring-2 focus:ring-blue-400 mb-4">
+                <!-- Answer 1 Input -->
                 <label class="block text-gray-800 font-bold mb-2">Answer 1</label>
                 <input 
+                    id="answer1"
                     type="text" 
                     placeholder="Enter Answer 1" 
                     class="border border-gray-300 rounded-lg w-full p-2 focus:ring-2 focus:ring-green-400">
             </div>
         </div>
         
-        <!-- Add Button -->
+        <!-- Add More Questions and Answers Button -->
         <button 
             onclick="addInputBoxes()" 
             class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4">
             + Add More
         </button>
         
-        <!-- Save Button -->
+        <!-- Save Form Data Button -->
         <button 
             onclick="saveForm()" 
             class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4">
             Save
         </button>
         
-        <!-- Success Message -->
+        <!-- Success Message Section -->
         <p id="successMessage" class="text-green-600 font-bold text-center mt-4 hidden">
         </p>
     </div>

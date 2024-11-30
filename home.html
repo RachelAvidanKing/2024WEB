@@ -1,44 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <!-- Metadata -->
+    <meta charset="UTF-8"> <!-- Defines character encoding as UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ensures proper scaling on mobile devices -->
+    <title>Home Page</title> <!-- Title displayed in the browser tab -->
+
+    <!-- TailwindCSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="data.js"></script>
-    <script src="screen.js"></script>
+
+    <!-- External JavaScript files -->
+    <script src="data.js"></script> <!-- JavaScript file to handle data-related logic -->
+    <script src="screen.js"></script> <!-- JavaScript file to handle screen-related behavior -->
 </head>
-<body class="bg-yellow-200 min-h-screen flex flex-col items-center justify-center">
-    <div class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
-        <!-- Welcome Title -->
-        <h1 class="text-4xl font-extrabold text-black text-center mb-6">Welcome Dear Journalist!</h1>
-        <!-- Buttons with Emojis -->
+<body class="bg-yellow-200 min-h-screen flex flex-col items-center justify-center dark:bg-gray-900 dark:text-white">
+    <!-- Main Container -->
+    <div class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full dark:bg-gray-800 dark:text-white">
+        <!-- Welcome Message -->
+        <h1 class="text-4xl font-extrabold text-black text-center mb-6 dark:text-white">Welcome Dear Journalist!</h1>
+
+        <!-- Buttons Section -->
         <div class="space-y-4">
-            <!-- Questions Button -->
-        <button 
-            type="button" 
-            class="w-full bg-slate-400 text-white py-2 px-4 rounded-lg shadow hover:bg-slate-800 focus:outline-none focus:ring-2"
-            onclick="redirectToHome('question.html')"
-            >
-            Questions❓ 
-        </button>
-            <!-- Full Form Button -->
+            <!-- Questions Page Button -->
             <button 
-            type="button" 
-            class="w-full bg-slate-400 text-white py-2 px-4 rounded-lg shadow hover:bg-slate-800 focus:outline-none focus:ring-2"
-            onclick="redirectToHome('fullform.html')"
-            >
-            Full Form📝  
-    </button>
-        </button>
-        <!-- Full Form Button -->
-        <button 
-        type="button" 
-        class="w-full bg-slate-400 text-white py-2 px-4 rounded-lg shadow hover:bg-slate-800 focus:outline-none focus:ring-2"
-        onclick="redirectToHome('history.html')"
-        >
-            Interview History🕒
-        </button>
+                type="button" 
+                class="w-full bg-slate-400 text-white py-2 px-4 rounded-lg shadow hover:bg-slate-800 focus:outline-none focus:ring-2"
+                onclick="redirectPage('question.html')">
+                Questions❓ <!-- Button Text with Emoji -->
+            </button>
+
+            <!-- Full Form Page Button -->
+            <button 
+                type="button" 
+                class="w-full bg-slate-400 text-white py-2 px-4 rounded-lg shadow hover:bg-slate-800 focus:outline-none focus:ring-2"
+                onclick="redirectPage('fullform.html')">
+                Full Form📝 <!-- Button Text with Emoji -->
+            </button>
+
+            <!-- Interview History Page Button -->
+            <button 
+                type="button" 
+                class="w-full bg-slate-400 text-white py-2 px-4 rounded-lg shadow hover:bg-slate-800 focus:outline-none focus:ring-2"
+                onclick="redirectPage('history.html')">
+                Interview History🕒 <!-- Button Text with Emoji -->
+            </button>
+            
+            <!-- Dark/Light Mode Toggle -->
+            <div class="flex justify-center mt-6">
+                <button 
+                    class="dark:hidden block bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700"
+                    onclick="toggleTheme()">
+                    Dark Mode
+                </button>
+                <button 
+                    class="hidden dark:block bg-yellow-500 text-white px-4 py-2 rounded-lg shadow hover:bg-yellow-700"
+                    onclick="toggleTheme()">
+                    Light Mode
+                </button>
+            </div>
         </div>
     </div>
 </body>

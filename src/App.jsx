@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css"
 import "./index.css"; // Import global CSS for styling
 import Title from "./components/Title.jsx"; // Import the Title component for the header
-import LoginPage from "./components/LoginPage.jsx"; // Import the LoginPage component
+import LoginPage from "./components/index.jsx"; // Import the LoginPage component
 import SignUp from "./components/SignUp.jsx"; // Import the SignUp component
 import Options from "./components/Options.jsx"; // Import the Options component for user options
 import Questions from "./components/Questions.jsx"; // Import the Questions component for question suggestions

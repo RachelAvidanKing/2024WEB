@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import image1 from "../photos/background.jpg"; // Import the background image
+import image1 from "./background.jpg"; // Import the background image
 import { Link } from "react-router-dom"; // Link component for navigation
 import { createUserWithEmailAndPassword } from "firebase/auth"; // Firebase method for creating a new user
-import { auth, database } from "./firebase"; // Import Firebase authentication and database
-import { ref, set, get } from "firebase/database"; // Firebase Realtime Database methods
+import { auth } from "../firebase"; // Import Firebase authentication
 
 function SignUp() {
   // State for storing the entered username
@@ -40,33 +39,6 @@ function SignUp() {
     }
 
     try {
-      const usersRef = ref(database, "users"); // Reference to the "users" node in the database
-      const snapshot = await get(usersRef); // Fetch all existing users
-
-      if (snapshot.exists()) {
-        const usersData = snapshot.val(); // Get existing users' data
-
-        // Check if the username already exists
-        const usernameExists = Object.values(usersData).some(
-          (user) => user.username === username
-        );
-
-        // Check if the email already exists
-        const emailExists = Object.values(usersData).some(
-          (user) => user.email === email
-        );
-
-        if (usernameExists) {
-          alert("Username is already taken. Please choose a different one.");
-          return;
-        }
-
-        if (emailExists) {
-          alert("Email is already registered. Please use a different email.");
-          return;
-        }
-      }
-
       // Create a new user in Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -74,12 +46,6 @@ function SignUp() {
         password
       );
       const user = userCredential.user; // Get the newly created user's information
-
-      // Save the new user's data to the database under their UID
-      await set(ref(database, `users/${user.uid}`), {
-        username: username,
-        email: email,
-      });
 
       // Show a success message
       alert(

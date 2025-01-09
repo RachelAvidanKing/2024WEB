@@ -1,7 +1,13 @@
+/* index.css or global.css */
 
-  /* Dark theme background for the container */
-  body.dark #background {
-    background-color: #4b5563; /* Tailwind's gray-600 (dark mode background) */
-  }
+/* Default Light Mode */
+body {
+  background-color: #ffffff; /* Light mode background */
+  color: #111827; /* Light mode text color */
+}
 
-  
+/* Dark Mode */
+body.dark {
+  background-color: #1f2937; /* Dark mode background (gray-800 in Tailwind) */
+  color: #f9fafb; /* Dark mode text color */
+}

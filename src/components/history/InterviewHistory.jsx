@@ -4,6 +4,7 @@ import { ref, query, orderByChild, equalTo, get } from "firebase/database";
 import Table from "./Table";
 import HistoryDownload from "./HistoryDownload";
 
+// Component to display a list of past interviews for the current user
 const InterviewHistory = () => {
   // State management for interviews, user, and responsive design
   const [interviews, setInterviews] = useState([]);

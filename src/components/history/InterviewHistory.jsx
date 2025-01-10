@@ -93,13 +93,13 @@ const InterviewHistory = () => {
   const headers = ["Interviewee", "Topic", "Date", "Download History"];
   const rows = interviews.map((interview) => [
     // Each cell is wrapped in a div for consistent styling
-    <div key={`${interview.id}-name`} className="text-black dark:text-white">
+    <div key={`${interview.id}-name`}>
       {interview.intervieweeName}
     </div>,
-    <div key={`${interview.id}-topic`} className="text-black dark:text-white">
+    <div key={`${interview.id}-topic`}>
       {interview.topic}
     </div>,
-    <div key={`${interview.id}-date`} className="text-black dark:text-white">
+    <div key={`${interview.id}-date`}>
       {interview.date}
     </div>,
     <div key={`${interview.id}-download`} className="whitespace-nowrap">
@@ -133,7 +133,7 @@ const InterviewHistory = () => {
             </div>
           ) : (
             // Desktop view: Show table with horizontal scroll if needed
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto rounded-lg bg-white dark:bg-gray-900">
               <Table headers={headers} rows={rows} />
             </div>
           )}

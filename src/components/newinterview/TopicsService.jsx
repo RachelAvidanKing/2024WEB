@@ -144,7 +144,7 @@ const TopicsService = () => {
   };
 
   return (
-    <div className="min-h-screen dark:bg-gray-900 transition-colors duration-200">
+    <div className=" dark:bg-gray-900 transition-colors duration-200">
       <div className="max-w-full p-6 sm:p-10">
         <h2 className="text-3xl sm:text-4xl font-bold text-purple-800 dark:text-purple-400 mb-8">
           Generate Interview Questions

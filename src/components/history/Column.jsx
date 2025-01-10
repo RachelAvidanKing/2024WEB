@@ -1,9 +1,13 @@
-import React from 'react'; // Import React library
+import React from "react";
 
-// Define a functional component
+// Functional component to render a single table column (cell)
 const Column = ({ content }) => {
-    // Render a table cell (td) with content and apply some styling classes
-    return <td className="border px-4 py-2">{content}</td>;
+  return (
+    // Render a table cell (td) with responsive styling
+    <td className="border px-4 py-2 text-gray-800 text-sm sm:text-base w-full md:w-auto">
+      {content} {/* Display the content passed as a prop */}
+    </td>
+  );
 };
 
 export default Column;

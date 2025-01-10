@@ -3,9 +3,9 @@ import React from "react";
 // Functional component for the Welcome Page
 const WelcomePage = () => {
   return (
-    <div className="min-h-screen dark:bg-gray-900 flex flex-col items-center justify-center p-6">
+    <div className="w-full dark:bg-gray-900 flex flex-col items-center justify-center p-6">
       {/* Main container with dark mode support, centered content, and padding */}
-      <div className="text-center dark:bg-gray-900 space-y-6 max-w-4xl mx-auto">
+      <div className="w-full text-center dark:bg-gray-900 space-y-6 max-w-4xl mx-auto">
         {/* Heading for the application */}
         <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-600 dark:from-blue-300 dark:via-purple-400 dark:to-pink-500">
           Interview Master Pro

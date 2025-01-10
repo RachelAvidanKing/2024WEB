@@ -1,18 +1,17 @@
-import React from 'react';
-import Column from './Column'; 
+import React from "react";
+import Column from "./Column";
 
-// Define the Row component, which represents a single row in a table
+// Functional component to represent a single row in a table
 const Row = ({ rowData }) => {
-    return (
-        <tr>
-            {/* Map through the rowData array to create a Column for each data element */}
-            {rowData.map((data, index) => (
-                // Pass each data item as content to the Column component
-                // Use the index as a unique key for each Column
-                <Column key={index} content={data} />
-            ))}
-        </tr>
-    );
+  return (
+    // Use flex layout for responsiveness and fallback to traditional table-row for larger screens
+    <tr className="flex flex-wrap md:table-row">
+      {/* Map through the rowData array to generate columns for each data item */}
+      {rowData.map((data, index) => (
+        <Column key={index} content={data} /> // Pass each data item as content to the Column component
+      ))}
+    </tr>
+  );
 };
 
-export default Row; 
+export default Row;

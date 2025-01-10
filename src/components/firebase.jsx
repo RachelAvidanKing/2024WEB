@@ -1,4 +1,4 @@
-// Import the functions you need from the SDKs you need
+// Import the functions you need from the SDKs 
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getDatabase,  ref, push } from "firebase/database"; // Import getDatabase for Realtime Database
@@ -26,4 +26,4 @@ const database = getDatabase(app);
 
 const db = getDatabase(app); // Get the database instance here
 
-export { auth, database, ref, db, push }; // Properly export both 'auth' and 'database'
+export { auth, database, ref, db, push }; 

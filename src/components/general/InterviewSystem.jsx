@@ -1,93 +1,84 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import WelcomePage from "./WelcomePage";
 import Tabs from "./Tabs";
-import NewInterview from "../newinterview/NewInterview";
 import InterviewHistory from "../history/InterviewHistory";
-import TopicsService from "../newinterview/topicsService"; // Import the AI service
-
+import TopicsService from "../newinterview/TopicsService";
+//Component to manage the interview system
 const InterviewSystem = () => {
   const [activeTab, setActiveTab] = useState("welcome");
   const [intervieweeDetails, setIntervieweeDetails] = useState({
     name: "",
     background: "",
-    date: ""
+    date: "",
   });
   const [selectedTopic, setSelectedTopic] = useState("");
   const [selectedQuestions, setSelectedQuestions] = useState([]);
-  const [customQuestions, setCustomQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
   const [interviews, setInterviews] = useState([]);
   const [selectedInterview, setSelectedInterview] = useState(null);
-  const [summary, setSummary] = useState("");
 
+  // Function to handle selecting or deselecting a question
   const handleQuestionSelect = (question) => {
     if (selectedQuestions.includes(question)) {
+      // Deselect the question
       setSelectedQuestions(selectedQuestions.filter((q) => q !== question));
       const newAnswers = { ...answers };
       delete newAnswers[question];
       setAnswers(newAnswers);
     } else {
+      // Select the question
       setSelectedQuestions([...selectedQuestions, question]);
     }
   };
 
+  // Function to handle changes in answers
   const handleAnswerChange = (question, answer) => {
     setAnswers({ ...answers, [question]: answer });
   };
 
+  // Function to add a custom question
   const handleCustomQuestionAdd = () => {
     const newQuestion = prompt("Enter your custom question:");
     if (newQuestion) {
-      setCustomQuestions([...customQuestions, newQuestion]);
       setSelectedQuestions([...selectedQuestions, newQuestion]);
     }
   };
 
+  // Function to save an interview
   const handleSaveInterview = () => {
     const newInterview = {
       id: Date.now(),
       interviewee: intervieweeDetails,
       topic: selectedTopic,
-      questions: [...selectedQuestions, ...customQuestions],
+      questions: selectedQuestions,
       answers,
-      customQuestions,
-      date: new Date().toISOString()
+      date: new Date().toISOString(),
     };
+
     setInterviews([...interviews, newInterview]);
-    
-    // Reset form
+
+    // Reset form for a new interview
     setIntervieweeDetails({ name: "", background: "", date: "" });
     setSelectedTopic("");
     setSelectedQuestions([]);
-    setCustomQuestions([]);
     setAnswers({});
-    
-    // Switch to history tab
     setActiveTab("history");
-  };
-
-  const handleGetSummary = async () => {
-    if (!selectedInterview) return;
-
-    // Here you could make an API call to generate a real summary
-    setSummary(`Summary of interview with ${selectedInterview.interviewee.name} 
-                about ${selectedInterview.topic} conducted on ${selectedInterview.date}`);
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br bg-purple-200 dark:bg-gray-900">
-      <div className=" dark:bg-gray-900 container mx-auto p-4">
+      <div className="dark:bg-gray-900 container mx-auto p-4">
         <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
-        
+
         {activeTab === "welcome" && <WelcomePage />}
-        
+
         {activeTab === "interview" && (
           <TopicsService>
             {({ topics, isLoading, error }) => {
               if (isLoading) {
                 return (
-                  <div className="flex items-center justify-center  dark:bg-gray-900 min-h-[60vh]">
-                    <div className="animate-spin rounded-full h-12 w-12 border-4  dark:bg-gray-900 border-purple-500 border-t-transparent"></div>
+                  <div className="flex items-center justify-center min-h-[60vh]">
+                    <div className="animate-spin rounded-full h-12 w-12 border-4 border-purple-500 border-t-transparent"></div>
                   </div>
                 );
               }
@@ -115,20 +106,17 @@ const InterviewSystem = () => {
                   handleAnswerChange={handleAnswerChange}
                   handleCustomQuestionAdd={handleCustomQuestionAdd}
                   handleSaveInterview={handleSaveInterview}
-                  customQuestions={customQuestions}
                 />
               );
             }}
           </TopicsService>
         )}
-        
+
         {activeTab === "history" && (
           <InterviewHistory
             interviews={interviews}
             selectedInterview={selectedInterview}
             setSelectedInterview={setSelectedInterview}
-            handleGetSummary={handleGetSummary}
-            summary={summary}
           />
         )}
       </div>

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import image1 from "./background.jpg"; // Import the background image
-import { Link } from "react-router-dom"; // Link component for navigation
-import { createUserWithEmailAndPassword } from "firebase/auth"; // Firebase method for creating a new user
-import { auth } from "../firebase"; // Import Firebase authentication
+import image1 from "./background.jpg"; 
+import { Link } from "react-router-dom"; 
+import { createUserWithEmailAndPassword } from "firebase/auth"; 
+import { auth } from "../firebase"; 
 
+// Component for the Sign-Up Page- username, email, and password fields
 function SignUp() {
   // State for storing the entered username
   const [username, setUsername] = useState("");

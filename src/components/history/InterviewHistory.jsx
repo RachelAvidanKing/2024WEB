@@ -4,6 +4,7 @@ import { ref, query, orderByChild, equalTo, get } from "firebase/database"; // D
 import Table from "./Table"; // Import the Table component
 import HistoryDownload from "./HistoryDownload"; // Import the HistoryDownload component
 
+//Component to display the interview history
 const InterviewHistory = () => {
   const [interviews, setInterviews] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
@@ -53,7 +54,7 @@ const InterviewHistory = () => {
   };
 
   // Prepare headers and rows for the table
-  const headers = ["Interviewee", "Topic", "Date", "Download"]; // Table headers
+  const headers = ["Interviewee", "Topic", "Date", "Download History"]; // Table headers
   const rows = interviews.map((interview) => [
     <div key={`${interview.id}-name`} className="text-black">
       {interview.intervieweeName}

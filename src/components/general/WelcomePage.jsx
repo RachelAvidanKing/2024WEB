@@ -1,20 +1,26 @@
 import React from "react";
 
+// Functional component for the Welcome Page
 const WelcomePage = () => {
   return (
     <div className="min-h-screen dark:bg-gray-900 flex flex-col items-center justify-center p-6">
-      <div className="text-center  dark:bg-gray-900 space-y-6 max-w-4xl mx-auto">
-      <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-600 dark:from-blue-300 dark:via-purple-400 dark:to-pink-500">
-  Interview Master Pro
-</h1>
+      {/* Main container with dark mode support, centered content, and padding */}
+      <div className="text-center dark:bg-gray-900 space-y-6 max-w-4xl mx-auto">
+        {/* Heading for the application */}
+        <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-600 dark:from-blue-300 dark:via-purple-400 dark:to-pink-500">
+          Interview Master Pro
+        </h1>
+        {/* Description of the application */}
         <p className="text-lg sm:text-xl text-gray-700 dark:text-gray-300">
           Your intelligent companion for conducting perfect interviews
         </p>
+        {/* Features Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+          {/* Array of features with titles and descriptions */}
           {[
             {
-              title: "Smart Questions",
-              desc: "AI-powered questions tailored to your interview topics",
+              title: "Smart Questions", // Feature title
+              desc: "AI-powered questions tailored to your interview topics", // Feature description
             },
             {
               title: "Easy Management",
@@ -26,12 +32,14 @@ const WelcomePage = () => {
             },
           ].map((feature, index) => (
             <div
-              key={index}
+              key={index} // Unique key for each feature card
               className="bg-white dark:bg-gray-800 backdrop-blur-sm rounded-lg p-6 shadow-lg transform hover:scale-105 transition-transform"
             >
+              {/* Feature title */}
               <h3 className="text-lg sm:text-xl font-semibold text-purple-600 dark:text-purple-300 mb-3">
                 {feature.title}
               </h3>
+              {/* Feature description */}
               <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
                 {feature.desc}
               </p>
@@ -43,4 +51,4 @@ const WelcomePage = () => {
   );
 };
 
-export default WelcomePage;
+export default WelcomePage; 

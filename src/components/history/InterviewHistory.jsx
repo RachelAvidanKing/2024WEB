@@ -90,23 +90,26 @@ const InterviewHistory = () => {
     </div>
   );
 
-  // Table configuration for desktop view
-  const headers = ["Interviewee", "Topic", "Date", "Download History"];
-  const rows = interviews.map((interview) => [
-    // Each cell is wrapped in a div for consistent styling
-    <div key={`${interview.id}-name`}>
-      {interview.intervieweeName}
-    </div>,
-    <div key={`${interview.id}-topic`}>
-      {interview.topic}
-    </div>,
-    <div key={`${interview.id}-date`}>
-      {interview.date}
-    </div>,
-    <div key={`${interview.id}-download`} className="whitespace-nowrap">
-      <HistoryDownload interview={interview} />
-    </div>,
-  ]);
+ // Table configuration for desktop view
+const headers = ["Interviewee", "Topic", "Date", "Download History"];
+const rows = interviews.map((interview) => [
+  // Each cell is wrapped in a div for consistent styling
+  <div key={`${interview.id}-name`} className="text-gray-800 dark:text-white">
+    {interview.intervieweeName}
+  </div>,
+  <div key={`${interview.id}-topic`} className="text-gray-800 dark:text-white">
+    {interview.topic}
+  </div>,
+  <div key={`${interview.id}-date`} className="text-gray-800 dark:text-white">
+    {interview.date}
+  </div>,
+  <div
+  key={`${interview.id}-download`}
+  className="text-gray-800 dark:text-white w-12 text-center"
+>
+  <HistoryDownload interview={interview} />
+</div>
+]);
 
   return (
     // Container with responsive padding and max width

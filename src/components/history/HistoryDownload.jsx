@@ -1,6 +1,6 @@
 import React from "react";
-import { Document, Packer, Paragraph, TextRun } from "docx"; 
-import { FaDownload } from "react-icons/fa"; 
+import { Document, Packer, Paragraph, TextRun } from "docx";
+import { FaDownload } from "react-icons/fa";
 
 // Component to generate and download interview details as a Word document
 const HistoryDownload = ({ interview }) => {
@@ -10,49 +10,49 @@ const HistoryDownload = ({ interview }) => {
     const doc = new Document({
       sections: [
         {
-          properties: {}, // Optional section properties
+          properties: {}, // Section properties (empty in this case)
           children: [
-            // Adding interviewee name as a bold paragraph
+            // Add the interviewee name as a bold paragraph
             new Paragraph({
               children: [
                 new TextRun({
                   text: `Interviewee: ${interview.intervieweeName}`,
-                  bold: true,
+                  bold: true, // Make text bold
                 }),
               ],
             }),
-            // Adding topic as a bold paragraph
+            // Add the topic as a bold paragraph
             new Paragraph({
               children: [
                 new TextRun({
                   text: `Topic: ${interview.topic}`,
-                  bold: true,
+                  bold: true, // Make text bold
                 }),
               ],
             }),
-            // Adding date as a bold paragraph
+            // Add the date as a bold paragraph
             new Paragraph({
               children: [
                 new TextRun({
                   text: `Date: ${interview.date}`,
-                  bold: true,
+                  bold: true, // Make text bold
                 }),
               ],
             }),
-            // Adding a heading for questions and answers
+            // Add a heading for questions and answers
             new Paragraph({
               children: [new TextRun("\nQuestions and Answers:")],
             }),
-            // Dynamically map through the questions and answers to create paragraphs
+            // Map through the questions and answers to generate paragraphs
             ...interview.questionsAndAnswers.map((qa, index) => {
               return new Paragraph({
                 children: [
-                  // Bold text for the question
+                  // Add the question as bold text
                   new TextRun({
                     text: `${index + 1}. Question: ${qa.question}`,
                     bold: true,
                   }),
-                  // Regular text for the answer
+                  // Add the answer as regular text
                   new TextRun({
                     text: `\n   Answer: ${qa.answer}`,
                   }),
@@ -64,25 +64,28 @@ const HistoryDownload = ({ interview }) => {
       ],
     });
 
-    // Generate the Word document blob and trigger the download
+    // Generate the Word document as a blob and trigger the download
     Packer.toBlob(doc).then((blob) => {
       const url = window.URL.createObjectURL(blob); // Create a URL for the blob
-      const link = document.createElement("a"); // Create a hidden anchor element
-      link.href = url; // Set the href to the blob URL
+      const link = document.createElement("a"); // Create a temporary anchor element
+      link.href = url; // Set the blob URL as the href
       link.download = `${interview.intervieweeName}_Interview.docx`; // Set the download filename
       link.click(); // Programmatically trigger a click to download the file
     });
   };
 
   return (
-    // Render the download icon with event handling and styling
-    <FaDownload
-      size={20} // Set the icon size
-      className="text-indigo-600 cursor-pointer hover:text-indigo-800 transition-colors" // Styling for hover effects and cursor pointer
-      onClick={handleDownloadWord} // Attach the download handler
-      title="Download Interview as Word" // Tooltip for accessibility
-    />
+    // Wrapper for the download icon
+    <div className="flex items-center justify-center">
+      {/* Download icon with hover effects and click functionality */}
+      <FaDownload
+        size={20} // Icon size
+        className="text-indigo-600 cursor-pointer hover:text-indigo-800 transition-colors sm:mx-2 mx-1" // Styling for hover and spacing
+        onClick={handleDownloadWord} // Attach the click handler
+        title="Download Interview as Word" // Tooltip for accessibility
+      />
+    </div>
   );
 };
 
-export default HistoryDownload; 
+export default HistoryDownload;

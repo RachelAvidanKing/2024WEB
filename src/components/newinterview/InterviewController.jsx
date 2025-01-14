@@ -1,5 +1,6 @@
 import { db, ref, push } from "../firebase";
 
+//Controller for saving and validating interview data
 class InterviewController {
     // Save interview data to Firebase
     static async saveInterview(interviewData) {

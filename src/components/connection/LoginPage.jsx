@@ -1,32 +1,32 @@
-import React, { useState } from "react"; 
-import { useNavigate } from "react-router-dom"; 
-import { Link } from "react-router-dom"; 
-import image1 from "./background.jpg"; 
-import { signInWithEmailAndPassword } from "firebase/auth"; 
-import { auth } from "../firebase"; 
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import image1 from "./background.jpg";
+import LoginController from "./LoginController";
 
-//Component for the Login Page- email and password fields
 function LoginPage({ onLogin }) {
-  const [email, setEmail] = useState(""); // State for storing user email
-  const [password, setPassword] = useState(""); // State for storing user password
-  const navigate = useNavigate(); // Initialize useNavigate for navigation
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleLogin = (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-    if (!email || !password) {
-      alert("Please fill in all fields."); // Alert user if any field is empty
-      return; // Exit the function
+    // Validate form data
+    const validation = LoginController.validateLoginData(email, password);
+    if (!validation.isValid) {
+      alert(validation.message);
+      return;
     }
 
-    signInWithEmailAndPassword(auth, email, password) // Attempt to sign in using Firebase
-      .then((userCredential) => {
-        onLogin(); // Notify parent component about successful login
-        navigate("/interviewsystem"); // Redirect user to the interviewsystem route
-      })
-      .catch((error) => {
-        alert("Login is not successful. Please check your credentials."); // Alert user on failed login
-      });
+    // Attempt to login
+    const result = await LoginController.loginWithEmailAndPassword(email, password);
+    if (result.success) {
+      onLogin();
+      navigate("/interviewsystem");
+    } else {
+      alert(result.message);
+    }
   };
 
   return (
@@ -34,9 +34,9 @@ function LoginPage({ onLogin }) {
       {/* Background Image */}
       <div className="absolute w-full h-full">
         <img
-          src={image1} // Set the background image source
-          alt="Background" // Alternative text for the image
-          className="w-full h-full object-cover" // Styling for full-screen background
+          src={image1}
+          alt="Background"
+          className="w-full h-full object-cover"
         />
       </div>
 
@@ -53,44 +53,44 @@ function LoginPage({ onLogin }) {
             {/* Email Input */}
             <div className="mb-3">
               <label
-                htmlFor="email" // Label for the email input field
+                htmlFor="email"
                 className="block text-sm font-medium text-gray-600"
               >
                 Email
               </label>
               <input
-                id="email" // ID for input field
-                name="email" // Name for input field
-                type="email" // Specify email input type
-                value={email} // Bind input value to email state
-                onChange={(e) => setEmail(e.target.value)} // Update email state on change
+                id="email"
+                name="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="mt-0.5 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter your email" // Placeholder text for email field
+                placeholder="Enter your email"
               />
             </div>
 
             {/* Password Input */}
             <div className="mb-3">
               <label
-                htmlFor="password" // Label for the password input field
+                htmlFor="password"
                 className="block text-sm font-medium text-gray-600"
               >
                 Password
               </label>
               <input
-                id="password" // ID for input field
-                name="password" // Name for input field
-                type="password" // Specify password input type
-                value={password} // Bind input value to password state
-                onChange={(e) => setPassword(e.target.value)} // Update password state on change
+                id="password"
+                name="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="mt-0.5 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter your password" // Placeholder text for password field
+                placeholder="Enter your password"
               />
             </div>
 
             {/* Login Button */}
             <button
-              type="submit" // Set button type to submit
+              type="submit"
               className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-500"
             >
               Login
@@ -99,7 +99,7 @@ function LoginPage({ onLogin }) {
           <p className="text-center text-sm mt-4">
             Don't have an account?{" "}
             <Link
-              to="/signup" // Link to the signup route
+              to="/signup"
               className="text-blue-500 hover:underline dark:text-purple-400"
             >
               Sign Up
@@ -111,4 +111,4 @@ function LoginPage({ onLogin }) {
   );
 }
 
-export default LoginPage; 
+export default LoginPage;

@@ -180,7 +180,7 @@ const TopicsService = () => {
                       type="checkbox"
                       checked={selectedQuestions.includes(question)}
                       onChange={() => handleQuestionSelect(question)}
-                        className="w-6 h-6 text-purple-600 dark:text-purple-400 bg-white dark:bg-gray-700 rounded focus:ring-purple-500"
+                      className="w-6 h-6 text-purple-600 dark:text-purple-400 bg-white dark:bg-gray-700 rounded focus:ring-purple-500"
                     />
                     <span className="text-lg sm:text-xl text-gray-900 dark:text-white">
                       {question.replace(/^\d+\.\s*/, "")}

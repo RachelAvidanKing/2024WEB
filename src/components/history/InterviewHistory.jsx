@@ -4,42 +4,34 @@ import mammoth from "mammoth";
 import Table from "./Table";
 import HistoryDownload from "./HistoryDownload";
 import { fetchInterviewsByUserId, saveInterview } from "./InterviewHistoryController";
-import image1 from "./example.png";
-
+//Component for interview history
 const InterviewHistory = () => {
-  // State to store fetched interviews
+  // State variables for managing interviews, current user, dark mode, viewport size, and file upload
   const [interviews, setInterviews] = useState([]);
-  // State to track the currently logged-in user
   const [currentUser, setCurrentUser] = useState(null);
-  // State to track whether dark mode is enabled
   const [darkMode, setDarkMode] = useState(false);
-  // State to determine if the user is on a mobile screen size
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  // State to store the selected file for uploading
   const [file, setFile] = useState(null);
 
-  // Update isMobile state on window resize
+  // Effect for handling screen resize and updating mobile view state
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Load dark mode preference from local storage
+  // Effect for retrieving dark mode preference from localStorage
   useEffect(() => {
     const savedDarkMode = localStorage.getItem("darkMode") === "true";
     setDarkMode(savedDarkMode);
   }, []);
 
-  // Fetch user details and their interviews when authentication state changes
+  // Effect for checking authentication state and fetching interviews for the logged-in user
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        setCurrentUser(user);
-        fetchInterviewsByUserId(user.uid).then(setInterviews);
+        setCurrentUser(user); // Set the current user
+        fetchInterviewsByUserId(user.uid).then(setInterviews); // Fetch interviews for the user
       } else {
         setCurrentUser(null);
       }
@@ -47,7 +39,7 @@ const InterviewHistory = () => {
     return () => unsubscribe();
   }, []);
 
-  // Handle file selection and ensure the file is a valid Word document
+  // Handle file selection and validate it
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (
@@ -61,7 +53,7 @@ const InterviewHistory = () => {
     }
   };
 
-  // Parse the Word document, extract data, and save the interview
+  // Process and upload the selected Word document
   const handleFileUpload = async () => {
     if (!file || !currentUser) {
       alert("No file selected or user not logged in.");
@@ -73,15 +65,14 @@ const InterviewHistory = () => {
       const arrayBuffer = event.target.result;
 
       try {
-        // Extract text from Word document
+        // Extract raw text from the Word document
         const { value } = await mammoth.extractRawText({ arrayBuffer });
-        // Split text into lines, trimming and filtering empty lines
         const lines = value
           .split("\n")
           .map((line) => line.trim())
           .filter((line) => line);
 
-        // Ensure the document contains at least three lines: name, topic, and date
+        // Validate document format
         if (lines.length < 3) {
           alert("Invalid Word document format. Ensure it contains name, topic, and date.");
           return;
@@ -89,33 +80,34 @@ const InterviewHistory = () => {
 
         const [intervieweeName, topic, date] = lines;
 
-        // Validate date format (YYYY-MM-DD)
+        // Validate date format
         if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
           alert("Invalid date format. Use YYYY-MM-DD.");
           return;
         }
 
-        // Extract questions and answers from subsequent lines
+        // Extract questions and answers
         const questionsAndAnswers = [];
         let currentQuestion = null;
         let currentAnswer = [];
 
         for (const line of lines.slice(3)) {
           if (line.endsWith("?")) {
+            // Save the previous question and its answers
             if (currentQuestion) {
               questionsAndAnswers.push({
                 question: currentQuestion,
                 answer: currentAnswer.join(" ").trim(),
               });
             }
-            currentQuestion = line;
-            currentAnswer = [];
+            currentQuestion = line; // Set new question
+            currentAnswer = []; // Reset answers
           } else {
-            currentAnswer.push(line);
+            currentAnswer.push(line); // Add to current answer
           }
         }
 
-        // Save the last question and answer pair
+        // Add the last question-answer pair if any
         if (currentQuestion) {
           questionsAndAnswers.push({
             question: currentQuestion,
@@ -123,13 +115,12 @@ const InterviewHistory = () => {
           });
         }
 
-        // Ensure at least one question-answer pair exists
         if (questionsAndAnswers.length === 0) {
           alert("No valid questions and answers found.");
           return;
         }
 
-        // Create interview object and save to the database
+        // Create an interview object and save it
         const interview = {
           intervieweeName,
           topic,
@@ -138,9 +129,8 @@ const InterviewHistory = () => {
           userId: currentUser.uid,
         };
 
-        await saveInterview(interview);
-        // Refresh the interview list
-        fetchInterviewsByUserId(currentUser.uid).then(setInterviews);
+        await saveInterview(interview); // Save interview to the database
+        fetchInterviewsByUserId(currentUser.uid).then(setInterviews); // Refresh interviews list
         alert("Interview added successfully!");
       } catch (error) {
         console.error("Error processing file:", error);
@@ -148,25 +138,48 @@ const InterviewHistory = () => {
       }
     };
 
-    reader.readAsArrayBuffer(file);
+    reader.readAsArrayBuffer(file); // Read the file
   };
 
-  // Component to display interview details on mobile screens
+  // Copy example text to clipboard
+  const copyToClipboard = () => {
+    const text = `
+John Doe
+Software Development Trends
+2025-01-17
+Where do you see the future of mathematics heading?
+Toward AI, quantum computing, and interdisciplinary applications.
+What are your thoughts on teaching methodologies in math?
+Focus on real-world problems and tech-driven tools.
+What is the role of technology in advancing mathematics?
+Enabling complex computations and data insights.
+    `;
+    navigator.clipboard.writeText(text).then(
+      () => alert("Text copied to clipboard!"),
+      (err) => alert("Failed to copy text.")
+    );
+  };
+
+  // Mobile card component for interviews
   const MobileCard = ({ interview }) => (
     <div className="bg-white dark:bg-gray-800 rounded-lg p-4 mb-4">
       <div className="grid grid-cols-1 gap-2">
+        {/* Display interviewee name */}
         <div>
           <span className="font-semibold text-gray-600 dark:text-gray-300">Interviewee:</span>
           <span className="ml-2 text-black dark:text-white">{interview.intervieweeName}</span>
         </div>
+        {/* Display topic */}
         <div>
           <span className="font-semibold text-gray-600 dark:text-gray-300">Topic:</span>
           <span className="ml-2 text-black dark:text-white">{interview.topic}</span>
         </div>
+        {/* Display date */}
         <div>
           <span className="font-semibold text-gray-600 dark:text-gray-300">Date:</span>
           <span className="ml-2 text-black dark:text-white">{interview.date}</span>
         </div>
+        {/* Download button */}
         <div className="mt-2">
           <HistoryDownload interview={interview} />
         </div>
@@ -174,11 +187,10 @@ const InterviewHistory = () => {
     </div>
   );
 
-  // Define headers for desktop table
+  // Headers and rows for the table component
   const headers = ["Interviewee", "Topic", "Date", "Download History"];
-  // Map interviews into rows for the table
   const rows = interviews
-    .sort((a, b) => new Date(b.date) - new Date(a.date)) // Sort interviews by date (descending)
+    .sort((a, b) => new Date(b.date) - new Date(a.date)) // Sort interviews by date
     .map((interview) => [
       <div key={`${interview.id}-name`} className="text-gray-800 dark:text-white">
         {interview.intervieweeName}
@@ -202,12 +214,15 @@ const InterviewHistory = () => {
       <h2 className="text-xl md:text-3xl font-bold text-purple-800 dark:text-purple-400 mb-4 md:mb-6 text-center">
         Interview History
       </h2>
+      {/* Instructions section */}
       <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg p-4 mb-6 shadow-md">
-        <h3 className="text-lg font-bold mb-2">How to Use</h3>
-        <ol className="list-decimal pl-5 space-y-2">
+        <h3 className="text-lg font-bold mb-4">How to Use</h3>
+        {/* Instructions content */}
+        <ul className="list-none pl-5 space-y-4">
+          {/* Prepare a document */}
           <li>
             Prepare a Word document (.docx) with the following format:
-            <ul className="list-disc pl-5">
+            <ul className="list-none">
               <li>The first line should contain the interviewee's name.</li>
               <li>The second line should contain the interview topic.</li>
               <li>The third line should contain the date in the format <strong>YYYY-MM-DD</strong>.</li>
@@ -215,21 +230,54 @@ const InterviewHistory = () => {
               <li>Ensure that a question ends with a question mark.</li>
             </ul>
           </li>
+          {/* Example document */}
           <li>
-            Below is an example of how your Word document should look:
-            <div className="flex justify-start mt-2">
-              <img
-                src={image1}
-                alt="Example Word Document"
-                className="max-w-full h-auto rounded shadow-md"
-              />
+            Below is an example of the required text format:
+            <div className="mt-4 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg p-4 shadow-sm">
+              <ul className="list-none space-y-2 font-mono text-sm text-gray-700 dark:text-gray-300">
+                <li className="font-bold text-gray-900 dark:text-gray-100">John Doe</li>
+                <li>Software Development Trends</li>
+                <li>2025-01-17</li>
+                <li>
+                  <ul className="list-disc pl-6">
+                    <li>
+                      <span className="font-semibold text-gray-900 dark:text-gray-100">
+                        Where do you see the future of mathematics heading?
+                      </span>
+                      <br />
+                      Toward AI, quantum computing, and interdisciplinary applications.
+                    </li>
+                    <li>
+                      <span className="font-semibold text-gray-900 dark:text-gray-100">
+                        What are your thoughts on teaching methodologies in math?
+                      </span>
+                      <br />
+                      Focus on real-world problems and tech-driven tools.
+                    </li>
+                    <li>
+                      <span className="font-semibold text-gray-900 dark:text-gray-100">
+                        What is the role of technology in advancing mathematics?
+                      </span>
+                      <br />
+                      Enabling complex computations and data insights.
+                    </li>
+                  </ul>
+                </li>
+              </ul>
             </div>
+            <button
+              onClick={copyToClipboard}
+              className="bg-purple-600 text-white py-2 px-4 rounded mt-3 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-50"
+            >
+              Copy to Clipboard
+            </button>
           </li>
+          {/* File upload instructions */}
           <li>Click on the "Choose File" button to select your Word document.</li>
-          <li>After selecting the file, click on the "Upload Interview" button to save it.</li>
-          <li>Once uploaded, you can view the saved interviews in the table below.</li>
-        </ol>
+          <li>Click "Upload Interview" to save the file and view it in the table below.</li>
+        </ul>
       </div>
+      {/* File upload section */}
       <div className="text-center mb-4">
         <input
           type="file"
@@ -244,6 +292,7 @@ const InterviewHistory = () => {
           Upload Interview
         </button>
       </div>
+      {/* Interviews table */}
       {interviews.length === 0 ? (
         <div className="text-center text-gray-600 dark:text-gray-400 py-8">
           No interviews found

@@ -1,5 +1,6 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth, database } from "../firebase"; // Ensure Realtime Database is initialized
+import { ref, set } from "firebase/database";
 
 /**
  * Validates the username format.
@@ -16,11 +17,12 @@ export const isValidUsername = (username) => {
  * @param {string} username - The username of the user.
  * @param {string} email - The email of the user.
  * @param {string} password - The password of the user.
+ * @param {string} newspaper - The newspaper where the user works.
  * @returns {Promise<object>} - Resolves with the user object if successful.
  * @throws {Error} - Throws an error if sign-up fails.
  */
-export const signUpUser = async (username, email, password) => {
-  if (!username || !email || !password) {
+export const signUpUser = async (username, email, password, newspaper) => {
+  if (!username || !email || !password || !newspaper) {
     throw new Error("Please fill in all fields.");
   }
 
@@ -33,6 +35,15 @@ export const signUpUser = async (username, email, password) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
+
+    // Save all user details to Realtime Database
+    const userRef = ref(database, `users/${user.uid}`);
+    await set(userRef, {
+      username,
+      email,
+      newspaper,
+    });
+
     return user; // Return the user object
   } catch (error) {
     throw new Error(error.message);

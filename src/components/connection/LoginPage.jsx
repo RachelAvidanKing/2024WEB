@@ -4,28 +4,30 @@ import { Link } from "react-router-dom";
 import image1 from "./background.jpg";
 import LoginController from "./LoginController";
 
+// Component for the login page
 function LoginPage({ onLogin }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [email, setEmail] = useState(""); // State to store email input
+  const [password, setPassword] = useState(""); // State to store password input
+  const navigate = useNavigate(); // Navigation function to redirect users
 
+  // Handles the login form submission
   const handleLogin = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent the default form submission behavior
 
-    // Validate form data
+    // Validate form data before attempting login
     const validation = LoginController.validateLoginData(email, password);
     if (!validation.isValid) {
-      alert(validation.message);
+      alert(validation.message); // Show an alert if validation fails
       return;
     }
 
-    // Attempt to login
+    // Attempt to log in using the provided credentials
     const result = await LoginController.loginWithEmailAndPassword(email, password);
     if (result.success) {
-      onLogin();
-      navigate("/interviewsystem");
+      onLogin(); // Trigger the parent component's login callback
+      navigate("/interviewsystem"); // Redirect to the main application page
     } else {
-      alert(result.message);
+      alert(result.message); // Show an error message if login fails
     }
   };
 
@@ -46,9 +48,11 @@ function LoginPage({ onLogin }) {
       {/* Login Form Container */}
       <div className="relative z-10 flex items-center justify-center min-h-screen">
         <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
+          {/* Page Title */}
           <h2 className="text-2xl font-bold text-center text-gray-800 mb-2">
             Login
           </h2>
+          {/* Login Form */}
           <form onSubmit={handleLogin}>
             {/* Email Input */}
             <div className="mb-3">
@@ -96,6 +100,7 @@ function LoginPage({ onLogin }) {
               Login
             </button>
           </form>
+          {/* Sign Up Link */}
           <p className="text-center text-sm mt-4">
             Don't have an account?{" "}
             <Link

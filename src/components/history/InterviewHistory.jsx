@@ -6,20 +6,19 @@ import HistoryDownload from "./HistoryDownload";
 import { fetchInterviewsByUserId, saveInterview } from "./InterviewHistoryController";
 import image1 from "./example.png";
 
-//Component to display the interview history
 const InterviewHistory = () => {
-  // State to store the list of interviews
+  // State to store fetched interviews
   const [interviews, setInterviews] = useState([]);
-  // State to store the current user information
+  // State to track the currently logged-in user
   const [currentUser, setCurrentUser] = useState(null);
-  // State to manage dark mode preference
+  // State to track whether dark mode is enabled
   const [darkMode, setDarkMode] = useState(false);
-  // State to determine if the screen size is mobile
+  // State to determine if the user is on a mobile screen size
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  // State to handle the file selected for upload
+  // State to store the selected file for uploading
   const [file, setFile] = useState(null);
 
-  // Effect to handle screen resizing and update mobile state
+  // Update isMobile state on window resize
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
@@ -29,13 +28,13 @@ const InterviewHistory = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Effect to retrieve and set dark mode preference from local storage
+  // Load dark mode preference from local storage
   useEffect(() => {
     const savedDarkMode = localStorage.getItem("darkMode") === "true";
     setDarkMode(savedDarkMode);
   }, []);
 
-  // Effect to listen to authentication state changes and fetch user-specific interviews
+  // Fetch user details and their interviews when authentication state changes
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -48,17 +47,21 @@ const InterviewHistory = () => {
     return () => unsubscribe();
   }, []);
 
-  // Function to handle file selection and validate its type
+  // Handle file selection and ensure the file is a valid Word document
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
-    if (selectedFile && selectedFile.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+    if (
+      selectedFile &&
+      selectedFile.type ===
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ) {
       setFile(selectedFile);
     } else {
       alert("Please upload a valid Word document.");
     }
   };
 
-  // Function to process and upload the selected Word document
+  // Parse the Word document, extract data, and save the interview
   const handleFileUpload = async () => {
     if (!file || !currentUser) {
       alert("No file selected or user not logged in.");
@@ -70,14 +73,15 @@ const InterviewHistory = () => {
       const arrayBuffer = event.target.result;
 
       try {
+        // Extract text from Word document
         const { value } = await mammoth.extractRawText({ arrayBuffer });
-
-        // Parse the document content into structured data
+        // Split text into lines, trimming and filtering empty lines
         const lines = value
           .split("\n")
           .map((line) => line.trim())
           .filter((line) => line);
 
+        // Ensure the document contains at least three lines: name, topic, and date
         if (lines.length < 3) {
           alert("Invalid Word document format. Ensure it contains name, topic, and date.");
           return;
@@ -85,37 +89,33 @@ const InterviewHistory = () => {
 
         const [intervieweeName, topic, date] = lines;
 
-        // Validate the date format
+        // Validate date format (YYYY-MM-DD)
         if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
           alert("Invalid date format. Use YYYY-MM-DD.");
           return;
         }
 
+        // Extract questions and answers from subsequent lines
         const questionsAndAnswers = [];
         let currentQuestion = null;
         let currentAnswer = [];
 
-        // Extract questions and answers from the document
         for (const line of lines.slice(3)) {
           if (line.endsWith("?")) {
-            // Finalize the current question and its answer
             if (currentQuestion) {
               questionsAndAnswers.push({
                 question: currentQuestion,
                 answer: currentAnswer.join(" ").trim(),
               });
             }
-
-            // Start a new question
             currentQuestion = line;
             currentAnswer = [];
           } else {
-            // Append the line to the current answer
             currentAnswer.push(line);
           }
         }
 
-        // Finalize the last question and answer
+        // Save the last question and answer pair
         if (currentQuestion) {
           questionsAndAnswers.push({
             question: currentQuestion,
@@ -123,11 +123,13 @@ const InterviewHistory = () => {
           });
         }
 
+        // Ensure at least one question-answer pair exists
         if (questionsAndAnswers.length === 0) {
           alert("No valid questions and answers found.");
           return;
         }
 
+        // Create interview object and save to the database
         const interview = {
           intervieweeName,
           topic,
@@ -136,8 +138,8 @@ const InterviewHistory = () => {
           userId: currentUser.uid,
         };
 
-        console.log("Prepared Interview Object:", interview);
         await saveInterview(interview);
+        // Refresh the interview list
         fetchInterviewsByUserId(currentUser.uid).then(setInterviews);
         alert("Interview added successfully!");
       } catch (error) {
@@ -149,7 +151,7 @@ const InterviewHistory = () => {
     reader.readAsArrayBuffer(file);
   };
 
-  // Component to render interview details in a card format for mobile screens
+  // Component to display interview details on mobile screens
   const MobileCard = ({ interview }) => (
     <div className="bg-white dark:bg-gray-800 rounded-lg p-4 mb-4">
       <div className="grid grid-cols-1 gap-2">
@@ -172,30 +174,34 @@ const InterviewHistory = () => {
     </div>
   );
 
-  // Table headers for the interview history
+  // Define headers for desktop table
   const headers = ["Interviewee", "Topic", "Date", "Download History"];
-  // Prepare rows for the table based on interview data
-  const rows = interviews.map((interview) => [
-    <div key={`${interview.id}-name`} className="text-gray-800 dark:text-white">
-      {interview.intervieweeName}
-    </div>,
-    <div key={`${interview.id}-topic`} className="text-gray-800 dark:text-white">
-      {interview.topic}
-    </div>,
-    <div key={`${interview.id}-date`} className="text-gray-800 dark:text-white">
-      {interview.date}
-    </div>,
-    <div key={`${interview.id}-download`} className="text-gray-800 dark:text-white w-12 text-center">
-      <HistoryDownload interview={interview} />
-    </div>,
-  ]);
+  // Map interviews into rows for the table
+  const rows = interviews
+    .sort((a, b) => new Date(b.date) - new Date(a.date)) // Sort interviews by date (descending)
+    .map((interview) => [
+      <div key={`${interview.id}-name`} className="text-gray-800 dark:text-white">
+        {interview.intervieweeName}
+      </div>,
+      <div key={`${interview.id}-topic`} className="text-gray-800 dark:text-white">
+        {interview.topic}
+      </div>,
+      <div key={`${interview.id}-date`} className="text-gray-800 dark:text-white">
+        {interview.date}
+      </div>,
+      <div
+        key={`${interview.id}-download`}
+        className="text-gray-800 dark:text-white w-12 text-center"
+      >
+        <HistoryDownload interview={interview} />
+      </div>,
+    ]);
 
   return (
     <div className="dark:bg-gray-900 backdrop-blur-sm rounded-lg p-4 md:p-6 w-full max-w-7xl mx-auto">
       <h2 className="text-xl md:text-3xl font-bold text-purple-800 dark:text-purple-400 mb-4 md:mb-6 text-center">
         Interview History
       </h2>
-      {/* Section for User Guidance */}
       <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg p-4 mb-6 shadow-md">
         <h3 className="text-lg font-bold mb-2">How to Use</h3>
         <ol className="list-decimal pl-5 space-y-2">
@@ -224,8 +230,6 @@ const InterviewHistory = () => {
           <li>Once uploaded, you can view the saved interviews in the table below.</li>
         </ol>
       </div>
-
-      {/* File input and upload button */}
       <div className="text-center mb-4">
         <input
           type="file"
@@ -240,14 +244,12 @@ const InterviewHistory = () => {
           Upload Interview
         </button>
       </div>
-
-      {/* Display interviews or a message if none are found */}
       {interviews.length === 0 ? (
         <div className="text-center text-gray-600 dark:text-gray-400 py-8">
           No interviews found
         </div>
       ) : (
-        <div className="w-full">
+        <div id="table-section" className="table-section w-full">
           {isMobile ? (
             <div className="space-y-4">
               {interviews.map((interview) => (
@@ -255,7 +257,7 @@ const InterviewHistory = () => {
               ))}
             </div>
           ) : (
-            <div className="overflow-x-auto rounded-lg bg-white dark:bg-gray-900">
+            <div className="table-container overflow-x-auto rounded-lg bg-white dark:bg-gray-900">
               <Table headers={headers} rows={rows} />
             </div>
           )}

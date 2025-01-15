@@ -1,45 +1,44 @@
 import React from "react";
-
-// Functional component for the Welcome Page
-const WelcomePage = () => {
+//Component for welcome page
+const WelcomePage = ({ setActiveTab }) => {
   return (
-    <div className="w-full dark:bg-gray-900 flex flex-col items-center justify-center p-6">
-      {/* Main container with dark mode support, centered content, and padding */}
-      <div className="w-full text-center dark:bg-gray-900 space-y-6 max-w-4xl mx-auto">
-        {/* Heading for the application */}
+    <div className="min-h-screen flex items-center justify-center dark:bg-gray-900 p-6">
+      <div className="flex flex-col items-center justify-center space-y-8 max-w-2xl text-center">
+        {/* Main Heading */}
         <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-600 dark:from-blue-300 dark:via-purple-400 dark:to-pink-500">
           Interview Master Pro
         </h1>
-        {/* Description of the application */}
+
+        {/* Description */}
         <p className="text-lg sm:text-xl text-gray-700 dark:text-gray-300">
           Your intelligent companion for conducting perfect interviews
         </p>
+
         {/* Features Section */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-          {/* Array of features with titles and descriptions */}
+        <div className="flex flex-col items-center justify-center gap-8 mt-12">
           {[
             {
-              title: "Smart Questions", // Feature title
-              desc: "AI-powered questions tailored to your interview topics", // Feature description
+              title: "Smart Questions",
+              desc: "AI-powered questions tailored to your interview topics",
+              tabId: "interview",
             },
             {
               title: "Easy Management",
-              desc: "Organize and track all your interviews effortlessly",
-            },
-            {
-              title: "Quick Summaries",
-              desc: "Get AI-generated summaries of your interviews instantly",
+              desc: "Organize and track all your interviews effortlessly and get summaries of your interviews instantly using Word",
+              tabId: "history",
             },
           ].map((feature, index) => (
             <div
-              key={index} // Unique key for each feature card
-              className="bg-white dark:bg-gray-800 backdrop-blur-sm rounded-lg p-6 shadow-lg transform hover:scale-105 transition-transform"
+              key={index}
+              onClick={() => setActiveTab(feature.tabId)}
+              className="relative bg-white dark:bg-gray-800 backdrop-blur-sm rounded-lg p-6 shadow-lg transform transition-transform duration-300 cursor-pointer hover:scale-105 hover:shadow-lg hover:shadow-purple-500/50 dark:hover:shadow-gray-500/50 max-w-xs w-full"
             >
-              {/* Feature title */}
+              {/* Feature Title */}
               <h3 className="text-lg sm:text-xl font-semibold text-purple-600 dark:text-purple-300 mb-3">
                 {feature.title}
               </h3>
-              {/* Feature description */}
+
+              {/* Feature Description */}
               <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
                 {feature.desc}
               </p>
@@ -51,4 +50,4 @@ const WelcomePage = () => {
   );
 };
 
-export default WelcomePage; 
+export default WelcomePage;

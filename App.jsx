@@ -5,6 +5,7 @@ import "./index.css";
 import LoginPage from "./src/components/connection/LoginPage.jsx";
 import SignUp from "./src/components/connection/SignUp.jsx";
 import Interviewsystem from "./src/components/general/InterviewSystem.jsx";
+import WelcomePage from "./src/components/general/WelcomePage.jsx";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
@@ -12,23 +13,35 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* Login Page */}
         <Route
           path="/"
           element={<LoginPage onLogin={() => setIsLoggedIn(true)} />}
         />
+
+        {/* Sign Up Page */}
         <Route path="/signup" element={<SignUp />} />
 
-        {/* Main route to render Interviewsystem if logged in */}
+        {/* Welcome Page */}
         <Route
           path="/main"
-          element={isLoggedIn ? <Interviewsystem /> : <Navigate to="/" />}
+          element={
+            isLoggedIn ? <WelcomePage /> : <Navigate to="/" />
+          }
         />
 
-        {/* InterviewSystem route if logged in */}
+        {/* Interview System */}
         <Route
           path="/interviewsystem"
           element={isLoggedIn ? <Interviewsystem /> : <Navigate to="/" />}
         />
+
+        {/* Welcome Page */}
+<Route
+  path="/welcome"
+  element={isLoggedIn ? <WelcomePage /> : <Navigate to="/" />}
+/>
+
       </Routes>
     </Router>
   );

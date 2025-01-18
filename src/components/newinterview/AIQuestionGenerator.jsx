@@ -6,7 +6,7 @@ const AIQuestionGenerator = ({ topicInput, setGeneratedQuestions, setIsLoading, 
   const [error, setError] = useState(""); // State to store error messages
 
   // API key for Google Generative AI
-  const apiKey = "AIzaSyCwWfGIlhfpmA3TAv7yi6p2zdHrJeTp2Lk";
+  const apiKey = "AIzaSyD4ZMUsbomZEjkAv255Eys1JNDUYaRmBwY";
   
   // Initialize the Google Generative AI client
   const genAI = new GoogleGenerativeAI(apiKey);
@@ -76,7 +76,7 @@ const AIQuestionGenerator = ({ topicInput, setGeneratedQuestions, setIsLoading, 
       // Extract and process the response text into individual questions
       const responseText = result.response.text();
       const questions = responseText.split("\n").map((item) => item.trim()).filter((item) => item);
-
+      console.log("Generated Questions:", questions);
       // Update the state with the generated questions
       setGeneratedQuestions(questions);
     } catch (error) {

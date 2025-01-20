@@ -12,6 +12,9 @@ const InterviewHistory = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [file, setFile] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredInterviews, setFilteredInterviews] = useState([]);
+
 
   // Effect for handling screen resize and updating mobile view state
   useEffect(() => {
@@ -38,6 +41,17 @@ const InterviewHistory = () => {
     });
     return () => unsubscribe();
   }, []);
+
+  useEffect(() => {
+    const lowerQuery = searchQuery.toLowerCase();
+    const filtered = interviews.filter(
+      (interview) =>
+        interview.intervieweeName.toLowerCase().includes(lowerQuery) ||
+        interview.topic.toLowerCase().includes(lowerQuery) ||
+        interview.date.includes(lowerQuery)
+    );
+    setFilteredInterviews(filtered);
+  }, [searchQuery, interviews]);
 
   // Handle file selection and validate it
   const handleFileChange = (e) => {
@@ -189,7 +203,7 @@ Enabling complex computations and data insights.
 
   // Headers and rows for the table component
   const headers = ["Interviewee", "Topic", "Date", "Download History"];
-  const rows = interviews
+  const rows = filteredInterviews
     .sort((a, b) => new Date(b.date) - new Date(a.date)) // Sort interviews by date
     .map((interview) => [
       <div key={`${interview.id}-name`} className="text-gray-800 dark:text-white">
@@ -292,11 +306,22 @@ Enabling complex computations and data insights.
           Upload Interview
         </button>
       </div>
+      <div className="flex items-center justify-center text-gray-800 dark:text-gray-800 rounded-lg p-4 mb-6">
+        <input
+          type="text"
+          placeholder="Search by Topic, Date, or Interviewee"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full max-w-md p-2 rounded-lg dark:bg-gray-300 text-black"
+
+        />
+        </div>
       {/* Interviews table */}
-      {interviews.length === 0 ? (
-        <div className="text-center text-gray-600 dark:text-gray-400 py-8">
+      {interviews.length === 0 || filteredInterviews.length === 0? (
+        <div className="text-center text-black dark:text-white py-8">
           No interviews found
         </div>
+        
       ) : (
         <div id="table-section" className="table-section w-full">
           {isMobile ? (

@@ -324,9 +324,9 @@ Enabling complex computations and data insights.
         
       ) : (
         <div id="table-section" className="table-section w-full">
-          {isMobile ? (
+                    {isMobile ? (
             <div className="space-y-4">
-              {interviews.map((interview) => (
+              {filteredInterviews.map((interview) => (
                 <MobileCard key={interview.id} interview={interview} />
               ))}
             </div>

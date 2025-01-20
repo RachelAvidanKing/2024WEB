@@ -90,8 +90,8 @@ const TopicsService = () => {
   };
 
   return (
-    <div className="dark:bg-gray-900 transition-colors duration-200">
-      <div className="max-w-full p-6 sm:p-10">
+    <div className="flex items-center justify-center min-h-screen dark:bg-gray-900">
+    <div className="w-full max-w-6xl bg-white dark:bg-gray-800 p-12 sm:p-16 rounded-lg shadow-2xl">
         <h2 className="text-3xl sm:text-4xl font-bold text-purple-800 dark:text-purple-400 mb-8">
           Generate Interview Questions
         </h2>
@@ -100,7 +100,7 @@ const TopicsService = () => {
           Please tick the questions you would like to include in the interview ☑️
         </h2>
 
-        <div className="space-y-6 sm:space-y-8 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
           <div className="w-full max-w-lg">
             <input
               type="text"
@@ -116,7 +116,7 @@ const TopicsService = () => {
               type="date"
               name="date"
               className="w-full p-4 sm:p-5 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none text-xl sm:text-2xl"
-              max={getTodayDate()} // מגביל לתאריכים עד היום בלבד
+              max={getTodayDate()} //Stricted to the dates before today
               value={intervieweeDetails.date}
               onChange={handleIntervieweeChange}
             />
@@ -216,7 +216,7 @@ const TopicsService = () => {
         </div>
 
         {(selectedQuestions.length > 0 || customQuestions.length > 0) && (
-          <div className="flex justify-start space-x-4 mt-8">
+          <div className="flex flex-wrap justify-center gap-4">
             <button
               onClick={handleSubmit}
               className="px-6 py-3 bg-indigo-600 dark:bg-indigo-700 text-white rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-800 transition-colors text-xl sm:text-2xl"

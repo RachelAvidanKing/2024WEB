@@ -19,17 +19,19 @@ const CustomQuestionInput = ({ addCustomQuestion }) => {
         <input
           type="text"
           placeholder="Enter your custom question"
-          className="flex-1 p-3 sm:p-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full sm:w-auto"
+          className="w-full p-4 sm:p-5 border border-purple-600 dark:border-purple-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:border-purple-600 outline-none shadow-sm text-lg sm:text-xl mb-6"
           value={customQuestion}
           onChange={(e) => setCustomQuestion(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleAddCustomQuestion()} // Add on Enter
         />
-        <button
-          onClick={handleAddCustomQuestion}
-          className="w-full sm:w-auto px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 transition-colors"
-        >
-          Add Question
-        </button>
+<button
+  onClick={handleAddCustomQuestion}
+  className="w-full sm:w-auto min-w-[160px] px-10 py-4 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 transition-colors whitespace-nowrap"
+>
+  Add Question
+</button>
+
+
       </div>
     </div>
   );

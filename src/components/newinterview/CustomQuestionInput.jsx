@@ -15,23 +15,26 @@ const CustomQuestionInput = ({ addCustomQuestion }) => {
       <h3 className="text-xl sm:text-2xl font-semibold text-purple-800 mb-6 text-center sm:text-left">
         Add Custom Questions
       </h3>
+      {/* 
+        Using flex-col for small screens stacks the input and button vertically.
+        On larger screens (sm:flex-row), they appear side by side.
+      */}
       <div className="flex flex-col sm:flex-row items-center sm:space-x-4 space-y-4 sm:space-y-0">
         <input
           type="text"
           placeholder="Enter your custom question"
-          className="w-full p-4 sm:p-5 border border-purple-600 dark:border-purple-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:border-purple-600 outline-none shadow-sm text-lg sm:text-xl mb-6"
+          className="w-full p-4 sm:p-5 border border-purple-600 dark:border-purple-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:border-purple-600 outline-none shadow-sm text-lg sm:text-xl"
           value={customQuestion}
           onChange={(e) => setCustomQuestion(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleAddCustomQuestion()} // Add on Enter
         />
-<button
-  onClick={handleAddCustomQuestion}
-  className="w-full sm:w-auto min-w-[160px] px-10 py-4 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 transition-colors whitespace-nowrap"
->
-  Add Question
-</button>
-
-
+        <button
+          onClick={handleAddCustomQuestion}
+          // On small screens, show margin-top. On larger, reset to 0.
+          className="w-[80%] sm:w-auto mt-6 sm:mt-0 px-5 py-2 bg-purple-600 text-white rounded-md duration-200 text-xl"
+        >
+          Add Question
+        </button>
       </div>
     </div>
   );

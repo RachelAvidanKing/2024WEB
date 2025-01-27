@@ -3,7 +3,7 @@ import { auth } from "../firebase";
 import mammoth from "mammoth";
 import Table from "./Table";
 import HistoryDownload from "./HistoryDownload";
-import { fetchInterviewsByUserId, saveInterview } from "./InterviewHistoryController";
+import { fetchInterviewsByUserId, saveInterview, deleteInterviewById} from "./InterviewHistoryController";
 //Component for interview history
 const InterviewHistory = () => {
   // State variables for managing interviews, current user, dark mode, viewport size, and file upload
@@ -50,8 +50,9 @@ const InterviewHistory = () => {
         interview.topic.toLowerCase().includes(lowerQuery) ||
         interview.date.includes(lowerQuery)
     );
-    setFilteredInterviews(filtered);
+    setFilteredInterviews(filtered); // Dynamically update filteredInterviews
   }, [searchQuery, interviews]);
+  
 
   // Handle file selection and validate it
   const handleFileChange = (e) => {
@@ -176,6 +177,7 @@ Enabling complex computations and data insights.
 
   // Mobile card component for interviews
   const MobileCard = ({ interview }) => (
+    
     <div className="bg-white dark:bg-gray-800 rounded-lg p-4 mb-4">
       <div className="grid grid-cols-1 gap-2">
         {/* Display interviewee name */}
@@ -194,33 +196,56 @@ Enabling complex computations and data insights.
           <span className="ml-2 text-black dark:text-white">{interview.date}</span>
         </div>
         {/* Download button */}
-        <div className="mt-2">
-          <HistoryDownload interview={interview} />
-        </div>
+        <div key={`${interview.id}-download`} className="text-gray-800 dark:text-white flex items-center justify-start">
+  <span className="mr-2">Click here to download:</span>
+  <HistoryDownload interview={interview} />
+</div>
+<div className="flex justify-center items-center">
+  <button
+    onClick={() => deleteInterviewById(interview.id, setInterviews)}
+    className="bg-red-500 text-white py-2 px-4 rounded mt-3 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-50"
+  >
+    delete
+  </button>
+  </div>
       </div>
     </div>
   );
-
+  
   // Headers and rows for the table component
-  const headers = ["Interviewee", "Topic", "Date", "Download History"];
+  const headers = ["Interviewee", "Topic", "Date", "Download History", "Delete"];
   const rows = filteredInterviews
     .sort((a, b) => new Date(b.date) - new Date(a.date)) // Sort interviews by date
     .map((interview) => [
-      <div key={`${interview.id}-name`} className="text-gray-800 dark:text-white">
+      
+      <div key={`${interview.id}-name`} className="text-gray-800 dark:text-white w-24">
         {interview.intervieweeName}
       </div>,
-      <div key={`${interview.id}-topic`} className="text-gray-800 dark:text-white">
+      <div key={`${interview.id}-topic`} className="text-gray-800 dark:text-white w-24">
         {interview.topic}
       </div>,
       <div key={`${interview.id}-date`} className="text-gray-800 dark:text-white">
         {interview.date}
       </div>,
+      
       <div
-        key={`${interview.id}-download`}
-        className="text-gray-800 dark:text-white w-12 text-center"
-      >
-        <HistoryDownload interview={interview} />
-      </div>,
+  key={`${interview.id}-download`}
+  className="text-gray-800 dark:text-white w-8 text-center"
+>
+  <HistoryDownload interview={interview} />
+</div>,
+         <div
+         key={`${interview.id}-actions`}
+         className="text-gray-800 dark:text-white w-12 text-center"
+       >
+         <button
+           onClick={() => deleteInterviewById(interview.id, setInterviews)}
+           className="bg-red-500 text-white px-3 py-1 rounded shadow"
+         >
+           -
+         </button>
+       </div>,
+      
     ]);
 
   return (
@@ -300,22 +325,21 @@ Enabling complex computations and data insights.
           className="block w-full sm:w-auto text-sm text-gray-700 bg-white dark:bg-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:text-white dark:border-gray-600 dark:placeholder-gray-400"
         />
         <button
-          onClick={handleFileUpload}
-          className="bg-purple-600 text-white p-2 rounded shadow transition-all w-full sm:w-auto mt-3 sm:mt-0"
-        >
-          Upload Interview
-        </button>
+  onClick={handleFileUpload}
+  className="bg-purple-600 text-white py-2 px-4 rounded mt-3 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-50"
+>
+  Upload Interview
+</button>
       </div>
-      <div className="flex items-center justify-center text-gray-800 dark:text-gray-800 rounded-lg p-4 mb-6">
-        <input
-          type="text"
-          placeholder="Search by Topic, Date, or Interviewee"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full max-w-md p-2 rounded-lg dark:bg-gray-300 text-black"
-
-        />
-        </div>
+      <div className="flex items-center justify-center text-gray-800 dark:text-gray-800 rounded-lg p-3 mb-3">
+  <input
+    type="text"
+    placeholder="Search by Topic, Date, or Interviewee (type here)"
+    value={searchQuery}
+    onChange={(e) => setSearchQuery(e.target.value)}
+    className="py-2 w-full max-w-xl mx-auto dark:bg-gray-300 text-black"
+  />
+</div>
       {/* Interviews table */}
       {interviews.length === 0 || filteredInterviews.length === 0? (
         <div className="text-center text-black dark:text-white py-8">

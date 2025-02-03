@@ -31,22 +31,22 @@ const TabsforMenu = ({ activeTab, setActiveTab }) => {
   };
 
   return (
-    <div className="p-4 space-y-3">
-      {/* Render each tab as a button */}
-      {tabs.map((tab) => (
-        <button
-          key={tab.id} // Unique key for each tab
-          onClick={() => handleTabClick(tab.id)} // Set the active tab when clicked
-          className={`block w-full text-left px-4 py-3 rounded-lg transition-colors ${
-            activeTab === tab.id
-              ? "bg-purple-600 text-white dark:bg-gray-800 dark:text-purple-300" // Styles for the active tab
-              : "bg-gray-100 text-gray-700 dark:bg-gray-900 dark:text-gray-300 hover:bg-purple-600 hover:text-white dark:hover:bg-gray-700 dark:hover:text-purple-300" // Styles for inactive tabs
-          }`}
-        >
-          {tab.label} {/* Display the tab's label */}
-        </button>
-      ))}
-    </div>
+    <div className="p-4 space-y-2">
+    {/* Render each tab as a button */}
+    {tabs.map((tab) => (
+      <button
+        key={tab.id} // Unique key for each tab
+        onClick={() => handleTabClick(tab.id)} // Set the active tab when clicked
+        className={`block w-full text-left px-3 py-2 text-sm rounded-md transition-colors ${
+          activeTab === tab.id
+            ? "bg-purple-600 text-white dark:bg-gray-800 dark:text-purple-300" // Styles for the active tab
+            : "bg-gray-100 text-gray-700 dark:bg-gray-900 dark:text-gray-300 hover:bg-purple-600 hover:text-white dark:hover:bg-gray-700 dark:hover:text-purple-300" // Styles for inactive tabs
+        }`}
+      >
+        {tab.label} {/* Display the tab's label */}
+      </button>
+    ))}
+  </div>
   );
 };
 

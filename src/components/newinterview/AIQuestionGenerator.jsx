@@ -6,7 +6,7 @@ const AIQuestionGenerator = ({ topicInput, setGeneratedQuestions, setIsLoading, 
   const [error, setError] = useState(""); // State to store error messages
 
   // API key for Google Generative AI
-  const apiKey = "AIzaSyD4ZMUsbomZEjkAv255Eys1JNDUYaRmBwY";
+  const apiKey = "AIzaSyBivSVYK5jeY-o3KjcZ_t3tuzGwC-sPU9Y";
   
   // Initialize the Google Generative AI client
   const genAI = new GoogleGenerativeAI(apiKey);

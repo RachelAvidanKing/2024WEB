@@ -1,5 +1,5 @@
 import { db } from "../firebase";
-import { ref, query, orderByChild, equalTo, get, push } from "firebase/database";
+import { ref, query, orderByChild, equalTo, get, push, remove } from "firebase/database";
 
 /**
  * Fetch interviews for a specific user by user ID.
@@ -43,5 +43,29 @@ export const saveInterview = async (interview) => {
   } catch (error) {
     console.error("Error saving interview:", error);
     return { success: false, message: "Failed to save interview" };
+  }
+};
+
+/**
+ * Delete an interview by its ID.
+ * @param {string} interviewId - The ID of the interview to be deleted.
+ */
+
+/**
+ * Delete an interview by its ID.
+ * @param {string} interviewId - The ID of the interview to be deleted.
+ */
+export const deleteInterviewById = async (interviewId, setInterviews) => {
+  try {
+    const interviewRef = ref(db, `interviews/${interviewId}`);
+    await remove(interviewRef);
+
+    // Update both `interviews` and `filteredInterviews`
+    setInterviews((prevInterviews) =>
+      prevInterviews.filter((interview) => interview.id !== interviewId)
+    );
+  } catch (error) {
+    console.error("Error deleting interview:", error);
+    throw error;
   }
 };

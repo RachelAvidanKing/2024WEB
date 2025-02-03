@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs 
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getDatabase,  ref, push } from "firebase/database"; // Import getDatabase for Realtime Database
+import { getDatabase,  ref, push, remove } from "firebase/database"; // Import getDatabase for Realtime Database
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -26,4 +26,4 @@ const database = getDatabase(app);
 
 const db = getDatabase(app); // Get the database instance here
 
-export { auth, database, ref, db, push }; 
+export { auth, database, ref, db, push, remove };
